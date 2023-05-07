@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nfse_webserver
+    volumes:
+      - ./:/var/www/nfse
+      - ./docker/apache:/etc/apache2/sites-enabled
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - 8001:80
+    restart: always
+    environment:
+      - TZ=${TZ}
+  database:
+    image: mysql:latest
+    container_name: nfse_mariadb
+    volumes:
+      - ./docker/mariadb:/var/lib/mysql
+    ports:
+      - 3333:3306
+    restart: always
+    environment:
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=nfse
