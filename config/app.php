@@ -11,9 +11,10 @@ return [
     "nfse" => [
         "certificate" => __DIR__ . "/../cert/pca-expert.pfx",
         "private_key" => "02032023",
+        "local" => "DEV", # DEV || PROD
         "url" => [
-            "PRD" => "https://notacarioca.rio.gov.br/WSNacional/nfse.asmx",
-            "HML" => "https://notacariocahom.rio.gov.br/WSNacional/nfse.asmx"
+            "PRD" => "https://notacarioca.rio.gov.br",
+            "HML" => "https://notacariocahom.rio.gov.br"
         ]
     ],
     'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
@@ -172,7 +173,7 @@ return [
             'host' => 'localhost',
             'port' => '3306',
             'username' => 'root',
-            'password' => 'root',
+            'password' => '',
             'database' => 'nfse',
             'url' => env('DATABASE_URL', null),
         ],

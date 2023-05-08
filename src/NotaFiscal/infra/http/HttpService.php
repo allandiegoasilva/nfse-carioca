@@ -2,7 +2,7 @@
 
 namespace App\NotaFiscal\Infra\Http;
 
-use App\NotaFiscal\Domain\Repository\IHttpService;
+use App\NotaFiscal\Contracts\IHttpService;
 use Cake\Core\Configure;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
@@ -19,7 +19,10 @@ class HttpService implements IHttpService
   public function request($action, $xml)
   {
     $config = Configure::read("nfse");
-    $url = $config['url']['PRD'];
+
+    $original_url = $config['local'] == 'DEV'  ? $config['url']['HML'] : $config['url']['PRD'];
+
+    $url = $original_url . "/WSNacional/nfse.asmx";
 
     $msgSize = strlen($xml);
 
@@ -83,8 +86,13 @@ class HttpService implements IHttpService
     $errors = $this->getErrors($response);
     $success = $errors ? false : true;
 
+    if ($success)
+      $response = simplexml_load_string($response);
+
+
     return [
       "success" => $success,
+      "uri" => $original_url,
       "errors" => $errors,
       "data" => $response
     ];

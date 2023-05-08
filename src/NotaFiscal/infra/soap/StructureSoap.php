@@ -2,7 +2,7 @@
 
 namespace App\NotaFiscal\Infra\Soap;
 
-use App\NotaFiscal\Domain\Repository\ISoapStructure;
+use App\NotaFiscal\Contracts\ISoapStructure;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 class StructureSoap implements ISoapStructure
@@ -24,11 +24,11 @@ class StructureSoap implements ISoapStructure
         'IdentificacaoRps' => $nfse['IdentificacaoRps'],
         'DataEmissao' => $nfse['DataEmissao'],
         'NaturezaOperacao' => $nfse['NaturezaOperacao'],
-        'RegimeEspecialTributacao' => isset($nfse['RegimeEspecialTributacao']) ? $nfse['RegimeEspecialTributacao'] : null,
+        'RegimeEspecialTributacao' => $nfse['RegimeEspecialTributacao'],
         'OptanteSimplesNacional' => $nfse['OptanteSimplesNacional'],
         'IncentivadorCultural' => $nfse['IncentivadorCultural'],
         'Status' => $nfse['Status'],
-        'RpsSubstituido' => isset($nfse['RpsSubstituido']) ? $nfse['RpsSubstituido'] : null,
+        'RpsSubstituido' => $nfse['RpsSubstituido'],
         'Servico' => [
           'Valores' => $nfse['Servico']['Valores'],
           'ItemListaServico' => $nfse['Servico']['ItemListaServico'],

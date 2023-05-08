@@ -1,6 +1,6 @@
 <?php
 
-namespace App\NotaFiscal\Domain\Repository;
+namespace App\NotaFiscal\Contracts;
 
 interface IHttpService
 {

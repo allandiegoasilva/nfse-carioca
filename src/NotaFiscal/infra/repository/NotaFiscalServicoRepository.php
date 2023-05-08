@@ -2,7 +2,7 @@
 
 namespace App\NotaFiscal\Infra\Repository;
 
-use App\NotaFiscal\Domain\Repository\INotaFiscalServicoRepository;
+use App\NotaFiscal\Contracts\INotaFiscalServicoRepository;
 
 class NotaFiscalServicoRepository implements INotaFiscalServicoRepository
 {
@@ -15,8 +15,8 @@ class NotaFiscalServicoRepository implements INotaFiscalServicoRepository
 
   function create($notaFiscalServico): void
   {
-    $sql = "INSERT INTO nota_fiscal(id_prefeitura, payload, response, status)
-                 VALUES (:id_prefeitura, :payload, :response, :status)";
+    $sql = "INSERT INTO nota_fiscal(id_prefeitura, payload, response, status, link)
+                 VALUES (:id_prefeitura, :payload, :response, :status, :link)";
 
     $prepare = $this->database->prepare($sql);
 
@@ -25,6 +25,7 @@ class NotaFiscalServicoRepository implements INotaFiscalServicoRepository
       "payload" => $notaFiscalServico["payload"],
       "response" => $notaFiscalServico["response"],
       "status" => $notaFiscalServico["status"],
+      "link" => $notaFiscalServico["link"],
     ]);
   }
 

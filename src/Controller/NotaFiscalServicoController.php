@@ -49,6 +49,8 @@ class NotaFiscalServicoController extends AppController
   public function cancel()
   {
     $data = $this->request->getData();
+    $data["id"] = $this->request->getParam('id');
+
     $service = new CancelarNotaFiscalServicoAction();
 
     $response = $service->execute($data);

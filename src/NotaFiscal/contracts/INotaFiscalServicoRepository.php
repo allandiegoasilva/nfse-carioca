@@ -1,8 +1,6 @@
 <?php
 
-namespace App\NotaFiscal\Domain\Repository;
-
-use NotaFiscalServico;
+namespace App\NotaFiscal\Contracts;
 
 interface INotaFiscalServicoRepository
 {

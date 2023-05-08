@@ -3,6 +3,7 @@ CREATE TABLE nota_fiscal (
   id_prefeitura VARCHAR(255) NOT NULL, 
   payload TEXT NOT NULL, 
   response TEXT NULL, 
+  link TEXT NULL, 
   status VARCHAR(100) NOT NULL DEFAULT 'CRIADA_NO_SISTEMA', -- EMITIDA, CANCELADA 
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
