@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes configuration.
  *
@@ -21,6 +22,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
@@ -41,35 +43,38 @@ use Cake\Routing\RouteBuilder;
  * inconsistently cased URLs when used with `:plugin`, `:controller` and
  * `:action` markers.
  */
+
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
 
-$routes->scope('/', function (RouteBuilder $builder) {
-    /*
-     * Here, we are connecting '/' (base path) to a controller called 'Pages',
-     * its action called 'display', and we pass a param to select the view file
-     * to use (in this case, templates/Pages/home.php)...
-     */
-    $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+$routes->scope('/api/nfse', function (RouteBuilder $builder) {
 
-    /*
-     * ...and connect the rest of 'Pages' controller's URLs.
-     */
-    $builder->connect('/pages/*', 'Pages::display');
 
-    /*
-     * Connect catchall routes for all controllers.
-     *
-     * The `fallbacks` method is a shortcut for
-     *
-     * ```
-     * $builder->connect('/{controller}', ['action' => 'index']);
-     * $builder->connect('/{controller}/{action}/*', []);
-     * ```
-     *
-     * You can remove these routes once you've connected the
-     * routes you want in your application.
-     */
+    $builder->connect('/:id', [
+        'controller' => 'NotaFiscalServico',
+        'action' => 'read',
+        'nfse:read'
+    ])->setMethods(["GET"]);
+
+    $builder->connect('/', [
+        'controller' => 'NotaFiscalServico',
+        'action' => 'readAll',
+        'nfse:readAll'
+    ])->setMethods(["GET"]);
+
+
+    $builder->connect('/', [
+        'controller' => 'NotaFiscalServico',
+        'action' => 'create',
+        'nfse:create'
+    ])->setMethods(["POST"]);
+
+    $builder->connect('/:id', [
+        'controller' => 'NotaFiscalServico',
+        'action' => 'cancel',
+        'nfse:cancel'
+    ])->setMethods(["DELETE"]);
+
     $builder->fallbacks();
 });
 
